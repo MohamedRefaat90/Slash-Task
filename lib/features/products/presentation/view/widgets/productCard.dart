@@ -1,17 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:slash_tesk/core/constants/app_routes.dart';
+import 'package:slash_tesk/features/products/presentation/view%20model/cubit/products_cubit.dart';
 
 import '../../../data/models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;
-
-  const ProductCard({super.key, required this.product});
+  final int index;
+  const ProductCard({super.key, required this.product, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    ProductsCubit cubit = BlocProvider.of<ProductsCubit>(context);
     return GestureDetector(
       onTap: () =>
           context.pushNamed(AppRoutes.productDetals, extra: product.id),

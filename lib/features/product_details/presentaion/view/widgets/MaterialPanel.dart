@@ -4,24 +4,25 @@ import 'package:slash_tesk/core/constants/app_colors.dart';
 import 'package:slash_tesk/features/product_details/data/models/products_details_model.dart';
 import 'package:slash_tesk/features/product_details/presentaion/view%20model/cubit/product_details_cubit.dart';
 
-class SizePanel extends StatelessWidget {
-  final List<Values>? productSizes;
-  const SizePanel({super.key, required this.productSizes});
+class MaterialPanel extends StatelessWidget {
+  final List<Values>? productMaterials;
+  const MaterialPanel({super.key, required this.productMaterials});
   @override
   Widget build(BuildContext context) {
     ProductDetailsCubit cubit = BlocProvider.of<ProductDetailsCubit>(context);
     Set uniqueproductMaterials = {};
-    // Remove All Duplicates Values
-    productSizes!.retainWhere((e) => uniqueproductMaterials.add(e.value));
 
-    return (productSizes!.isNotEmpty)
+    // Remove All Duplicates Values
+    productMaterials!.retainWhere((e) => uniqueproductMaterials.add(e.value));
+
+    return (uniqueproductMaterials.isNotEmpty)
         ? DefaultTextStyle(
             style: const TextStyle(color: AppColors.white),
             child: Column(children: [
               const SizedBox(height: 30),
-              const Row(
-                children: [Text("Select Size"), Spacer(), Text("Size Chart")],
-              ),
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Select Material")),
               const SizedBox(height: 20),
               SizedBox(
                 height: 50,
@@ -30,17 +31,17 @@ class SizePanel extends StatelessWidget {
                   itemCount: uniqueproductMaterials.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => InkWell(
-                    onTap: () => cubit.selectProductSize(index),
+                    onTap: () => cubit.selectProductMaterial(index),
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: cubit.selectedSize == index
+                          color: cubit.selectedMaterial == index
                               ? AppColors.primaryColor
                               : AppColors.black,
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.all(10),
                       child: Center(
-                        child: Text(uniqueproductMaterials.toList()[index],
+                        child: Text(uniqueproductMaterials.toList()[index]!,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,

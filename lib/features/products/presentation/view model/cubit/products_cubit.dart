@@ -7,7 +7,7 @@ part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   final ProductsRepo _productsRepo;
-
+  int selectdProduct = 0;
   ProductsCubit(this._productsRepo) : super(ProductsInitial());
 
   Future<void> getAllProducts() async {

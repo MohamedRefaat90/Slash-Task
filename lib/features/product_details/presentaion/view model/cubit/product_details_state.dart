@@ -8,9 +8,9 @@ final class ProductDetailsInitial extends ProductDetailsState {}
 final class ProductDetailsLoading extends ProductDetailsState {}
 
 final class ProductDetailsSuccess extends ProductDetailsState {
-  final ProductDetailsModel product;
+  // final ProductDetailsModel product;
 
-  ProductDetailsSuccess({required this.product});
+  // ProductDetailsSuccess({required this.product});
 }
 
 final class ProductDetailsFailure extends ProductDetailsState {

@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slash_tesk/features/product_details/data/models/products_details_model.dart';
+
+import '../../view model/cubit/product_details_cubit.dart';
 
 class ProducNameandPrice extends StatelessWidget {
   final ProductDetailsModel product;
@@ -8,6 +11,7 @@ class ProducNameandPrice extends StatelessWidget {
   const ProducNameandPrice({super.key, required this.product});
   @override
   Widget build(BuildContext context) {
+    ProductDetailsCubit cubit = BlocProvider.of<ProductDetailsCubit>(context);
     return DefaultTextStyle(
       style: const TextStyle(color: Colors.white, fontSize: 16),
       child: Row(
@@ -21,10 +25,10 @@ class ProducNameandPrice extends StatelessWidget {
                     child: Text(
                       product.name!,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18),
+                          fontWeight: FontWeight.bold, fontSize: 22),
                     )),
                 const SizedBox(height: 20),
-                Text("EGP ${product.variations![0].price}"),
+                Text("EGP ${product.variations![cubit.selectedColor].price}"),
               ]),
           const Spacer(),
           Column(

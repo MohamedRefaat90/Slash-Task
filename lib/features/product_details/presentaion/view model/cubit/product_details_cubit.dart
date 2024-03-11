@@ -7,9 +7,19 @@ part 'product_details_state.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   final ProductDetailsRepo _productDetailsRepo;
-  ProductDetailsModel? productDetailsModel;
+  ProductDetailsModel? productDetails;
+  int selectedSize = 0;
+  int selectedColor = 0;
+  int selectedMaterial = 0;
   ProductDetailsCubit(this._productDetailsRepo)
       : super(ProductDetailsInitial());
+
+  void changeSliderIndicator(
+      int selectedIndex, int index, PageController controller) {
+    selectedIndex = index;
+    controller.animateToPage(selectedIndex,
+        duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+  }
 
   Future<void> getProductDetails(int productID) async {
     emit(ProductDetailsLoading());
@@ -22,15 +32,24 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     response.fold(
         (failure) => emit(ProductDetailsFailure(errorMsg: failure.errMsg)),
         (product) {
-      productDetailsModel = product;
-      return emit(ProductDetailsSuccess(product: product));
+      productDetails = product;
+
+      return emit(ProductDetailsSuccess());
     });
   }
 
-  void changeSliderIndicator(
-      int selectedIndex, int index, PageController controller) {
-    selectedIndex = index;
-    controller.animateToPage(selectedIndex,
-        duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+  selectProductSize(int index) {
+    selectedSize = index;
+    emit(ProductDetailsSuccess());
+  }
+
+  selectProductColor(int index) {
+    selectedColor = index;
+    emit(ProductDetailsSuccess());
+  }
+
+  selectProductMaterial(int index) {
+    selectedMaterial = index;
+    emit(ProductDetailsSuccess());
   }
 }
